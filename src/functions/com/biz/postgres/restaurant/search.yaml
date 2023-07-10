@@ -5,11 +5,17 @@ tasks:
     args:
       datasource: postgres
       data:
-        select:
-          id: true
-          name: true
+        include:
           menuItems: true
         where:
           location: <% inputs.body.location %>
+          menuItems: |
+                  <coffee% if inputs.body.menuItems?.couponCode then {
+                    some:
+                      couponCode:
+                        hasSome: inputs.body.menuItems.couponCode
+                  } else {
+                    couponCode: undefined
+                  }%>
       config:
         method: Restaurant.findMany
