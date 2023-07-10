@@ -4,6 +4,12 @@ tasks:
     fn: com.gs.datastore
     args:
       datasource: postgres
-      data: <% inputs.body %>
+      data:
+        select:
+          id: true
+          name: true
+          menuItems: true
+        where:
+          location: <% inputs.body.location %>
       config:
         method: Restaurant.findMany
